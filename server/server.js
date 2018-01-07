@@ -13,14 +13,24 @@ app.use(express.static(__dirname + '/../public'))
 app.use(bodyParser.json())
 
 //DB
-const mongoose = global.Promise
-mongoose.connect('mongod://localhost:27017/bookdb')
+mongoose.Promise = global.Promise
+mongoose.connect('mongodb://localhost:27017/bookdb')
 
 
 //POST
-add.post('/api/add/store', (req, res)=>{
- console.log("Getting Post req")
- console.log(req.body)
+app.post('/api/add/store', (req, res)=>{
+    const store = new Store({
+        name: req.body.name,
+        address: req.body.address,
+        phone: req.body.phone,
+    });
+
+    store.save((err, doc)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        res.status(200).send();
+    })
 })
 
 

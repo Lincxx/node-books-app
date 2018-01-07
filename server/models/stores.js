@@ -1,5 +1,3 @@
-import { mongo } from 'mongoose';
-
 const mongoose = require('mongoose')
 
 
@@ -19,7 +17,7 @@ const storeSchema = mongoose.Schema({
 })
 
 //modle
-const Store = mongoose('Store', storeSchema)
+const Store = mongoose.model('Store', storeSchema)
 
 module.exports ={
     Store
