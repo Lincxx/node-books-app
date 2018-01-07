@@ -31,6 +31,34 @@ app.post('/api/add/store', (req, res)=>{
         }
         res.status(200).send();
     })
+});
+
+app.post('/api/add/books', (req, res)=>{
+    const book = new Book({
+        name: req.body.name,
+        author: req.body.author,
+        pages: req.body.pages,
+        price: req.body.price,
+        stores: req.body.stores
+    })
+
+    book.save((err, doc)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        res.status(200).send();
+    })
+});
+
+//GET
+
+app.get('/api/stores', (req, res)=>{
+    Store.find((err, doc)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        res.send(doc);
+    })
 })
 
 

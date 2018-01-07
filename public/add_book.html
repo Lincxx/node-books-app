@@ -57,4 +57,51 @@
    
 
 </body>
+
+<script>
+
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:3000/api/stores",
+            success:(data, status, xhr)=>{
+                data.map((item)=>{
+                    $("#stores").append($('<option>',{
+                        value: item.name,
+                        text: item.name
+                    }))
+                })
+            },
+            error:()=>{
+                alert('Something went wrong')
+            }
+        })
+
+        $("#books_form").submit((e)=>{
+            e.preventDefault();
+
+            let bookObj = {
+                name: document.querySelector("#name").value,
+                author: document.querySelector("#author").value,
+                pages: document.querySelector("#pages").value,
+                price: document.querySelector("#price").value,
+                stores: document.querySelector("#stores").value,
+            }
+
+            $.ajax({
+                type:"POST",
+                url: "http://localhost:3000/api/add/books",
+                data:JSON.stringify(bookObj),
+                contentType: "application/json",
+                success:(data, status, xhr)=>{
+                    $('#books_form')[0].reset();
+                    alert('thank you !!!!')
+                },
+                error:(xhr)=>{
+                    alert("Some is f'ed up....")
+                }
+            })
+        })
+    
+ </script>
+
 </html>
